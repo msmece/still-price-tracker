@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Still — a little patience pays",
+  "version": "0.1.0",
+  "description": "A small, private price tracker. Choose a price on a page, set a target, and let it come to you.",
+  "minimum_chrome_version": "120",
+  "permissions": ["activeTab", "scripting", "storage", "alarms"],
+  "optional_permissions": ["notifications"],
+  "optional_host_permissions": ["https://*/*", "http://*/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_popup": "popup.html", "default_title": "Track with Still" },
+  "icons": { "128": "icon.png" },
+  "options_page": "index.html",
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none'" }
+}

@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>Still — your watchlist</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Still home"
+        ><span class="brand-mark">s</span> still<span class="brand-dot">.</span></a
+      >
+      <nav aria-label="Main">
+        <button class="nav-active" id="watchlist-nav">
+          Watchlist <span id="nav-count">0</span></button
+        ><button id="settings-nav">Settings</button>
+      </nav>
+      <span class="local-badge"><span></span> Just on your device</span>
+    </header>
+    <main>
+      <div id="preview-banner" hidden>
+        INTERACTIVE PREVIEW
+        <span>These are sample items. Install the extension to track live prices.</span
+        ><button id="reset-demo">Reset preview ↺</button>
+      </div>
+      <section class="intro">
+        <div>
+          <div class="eyebrow">LESS REFRESHING. MORE LIVING.</div>
+          <h1>Worth the wait<span>.</span></h1>
+          <p>Your little wishlist. We’ll watch the prices.</p>
+        </div>
+        <button class="primary" id="add-watch"><span class="plus">＋</span> Track something</button>
+      </section>
+      <section class="summary" aria-label="Watchlist overview">
+        <div>
+          <span class="summary-label">On your radar</span
+          ><strong id="stat-total">0<span>items</span></strong>
+        </div>
+        <div>
+          <span class="summary-label">Down since you added</span
+          ><strong id="stat-drops">0<span>price drops</span></strong>
+        </div>
+        <div>
+          <span class="summary-label">At your target</span
+          ><strong id="stat-targets">0<span>little wins</span></strong>
+        </div>
+        <div class="summary-note">
+          <span class="sprout">↘</span>
+          <p>Good things come<br />to those who wait.</p>
+        </div>
+      </section>
+      <section class="list-section">
+        <div class="toolbar">
+          <div class="filters" role="group" aria-label="Filter items">
+            <button data-filter="all" class="selected">
+              All items <span id="all-count">0</span></button
+            ><button data-filter="drops">Price drops <span id="drop-count">0</span></button
+            ><button data-filter="target">Target reached</button>
+          </div>
+          <div class="list-actions">
+            <label class="search"
+              ><span aria-hidden="true">⌕</span
+              ><input
+                id="search"
+                type="search"
+                placeholder="Find an item"
+                aria-label="Search tracked items" /></label
+            ><button
+              id="check-all"
+              class="icon-button"
+              title="Check all prices"
+              aria-label="Check all prices"
+            >
+              ↻
+            </button>
+          </div>
+        </div>
+        <div id="watch-grid" class="watch-grid"></div>
+        <div id="empty" class="empty" hidden>
+          <span class="empty-symbol">↘</span>
+          <h2>A little room for something good.</h2>
+          <p>Add your first item, or try another filter.</p>
+          <button class="secondary" id="empty-add">Track something</button>
+        </div>
+      </section>
+      <footer>
+        <span
+          ><span class="status-dot"></span>
+          <span id="schedule-label"
+            >Checking every 6 hours while your browser is running</span
+          ></span
+        ><button id="export" class="text-button">Export your data ↗</button>
+      </footer>
+    </main>
+    <dialog id="editor">
+      <form id="watch-form">
+        <div class="dialog-heading">
+          <div>
+            <div class="eyebrow">MAKE ROOM ON YOUR RADAR</div>
+            <h2 id="editor-title">Track something.</h2>
+          </div>
+          <button type="button" class="close icon-button" aria-label="Close">×</button>
+        </div>
+        <p class="muted">A price worth waiting for. A nudge when it gets there.</p>
+        <input type="hidden" name="id" /><label
+          >Product link<input
+            name="url"
+            type="url"
+            placeholder="https://your-favourite-shop.com/product"
+            required /></label
+        ><label
+          >Give it a name<input
+            name="name"
+            placeholder="That very good reading chair"
+            maxlength="160"
+            required
+        /></label>
+        <div class="form-row">
+          <label
+            >Target price <span class="optional">optional</span
+            ><input
+              name="target"
+              type="number"
+              min="0"
+              step="any"
+              placeholder="Your happy price" /></label
+          ><label
+            >Currency<select name="currency">
+              <option>EUR</option>
+              <option>USD</option>
+              <option>GBP</option>
+              <option>CHF</option>
+              <option>CAD</option>
+              <option>AUD</option>
+              <option>SEK</option>
+              <option>DKK</option>
+              <option>NOK</option>
+              <option>PLN</option>
+              <option>JPY</option>
+              <option>INR</option>
+            </select></label
+          >
+        </div>
+        <details id="custom-options">
+          <summary>Customize the price source <span>⌄</span></summary>
+          <label
+            >Read the price from<select name="source">
+              <option value="auto">Automatic detection</option>
+              <option value="selector">An element on the page (CSS selector)</option>
+              <option value="api">A JSON API</option>
+            </select></label
+          >
+          <div id="selector-options" hidden>
+            <label>Price element<input name="selector" placeholder=".product-price" /></label>
+            <p class="field-note">
+              Or open the shop and choose “Pick a price” from the Still extension.
+            </p>
+          </div>
+          <div id="api-options" hidden>
+            <label
+              >API address<input
+                name="apiUrl"
+                type="url"
+                placeholder="https://shop.com/api/product/123" /></label
+            ><label>JSON price path<input name="path" placeholder="0.price.amount" /></label>
+            <p class="field-note">
+              Public GET endpoints. Dot-separated keys and array indexes. No scripts or credentials.
+            </p>
+          </div>
+          <label
+            >Decimal format<select name="decimal">
+              <option value="auto">Detect automatically</option>
+              <option value=",">Comma · 1.299,95</option>
+              <option value=".">Point · 1,299.95</option>
+            </select></label
+          >
+        </details>
+        <p class="field-note" id="check-note">
+          Page checks briefly open and close an inactive tab. API checks run without a tab. History
+          starts with the first successful check.
+        </p>
+        <div id="form-status" class="form-status" role="status"></div>
+        <div class="dialog-actions">
+          <button type="button" id="test-source" class="secondary">Test price</button
+          ><button type="submit" class="primary" id="save-watch">Start watching →</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="detail"><div id="detail-content"></div></dialog>
+    <dialog id="settings">
+      <form id="settings-form">
+        <div class="dialog-heading">
+          <div>
+            <div class="eyebrow">A QUIETER WAY TO SHOP</div>
+            <h2>Your preferences.</h2>
+          </div>
+          <button class="close icon-button" type="button" aria-label="Close">×</button>
+        </div>
+        <label
+          >Check prices<select name="interval">
+            <option value="60">Every hour</option>
+            <option value="360">Every 6 hours</option>
+            <option value="720">Every 12 hours</option>
+            <option value="1440">Once a day</option>
+            <option value="0">Only when I ask</option>
+          </select></label
+        >
+        <p class="field-note">
+          Checks run while the browser is running, one item at a time. Page sources briefly open an
+          inactive tab. Shops with sign-in, bot checks, or changing layouts may need attention.
+        </p>
+        <label class="toggle-row"
+          ><span
+            >Notify me when a target is reached<small
+              >One alert when the price crosses your target.</small
+            ></span
+          ><input name="notifications" type="checkbox" role="switch"
+        /></label>
+        <div class="privacy-note">
+          <strong>Your wishlist stays yours.</strong>
+          <p>
+            No account. No analytics. No cloud. Product links and price history stay in this
+            browser. Clearing extension data removes them.
+          </p>
+        </div>
+        <div class="dialog-actions">
+          <button type="submit" class="primary">Save preferences</button>
+        </div>
+      </form>
+    </dialog>
+    <div id="toast" role="status" hidden></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

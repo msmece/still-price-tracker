@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "name": "Still \u2014 Price Tracker",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/__pycache__": true
+    },
+    "search.exclude": {
+      "dist/**": true
+    }
+  }
+}
