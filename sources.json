@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "type": "json-api",
+      "host": "jysk.de",
+      "selector": "[data-jysk-react-component=\"PDPSumUpContainer\"]",
+      "attribute": "data-jysk-react-properties",
+      "idPath": "content.wssId",
+      "namePath": "content.title",
+      "pricePath": "content.price.minSinglePrice",
+      "currency": "EUR",
+      "apiPrefix": "https://jysk.de/service/search/product-teaser-lookup?locale=de-DE&ids=",
+      "apiPath": "0.price.unformatted.minSingle"
+    }
+  ]
+}

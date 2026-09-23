@@ -1,7 +1,8 @@
 import { money, lowestObserved, originPattern, validateWatch } from './model.js'
 import { demoRequest } from './demo.js'
 import { art } from './art.js'
-const live = Boolean(globalThis.chrome?.runtime?.id)
+const chrome = globalThis.browser || globalThis.chrome
+const live = Boolean(chrome?.runtime?.id)
 const $ = (selector) => document.querySelector(selector)
 const esc = (value) =>
   String(value ?? '').replace(
@@ -166,7 +167,7 @@ async function permit(w) {
     ...new Set([originPattern(w.url), ...(w.source === 'api' ? [originPattern(w.apiUrl)] : [])])
   ]
   if (!(await chrome.permissions.request({ origins })))
-    throw new Error('Allow access to this shop so Still can check its price.')
+    throw new Error('Allow access to this shop so Price Lantern can check its price.')
 }
 async function submit(test = false) {
   if (!$('#watch-form').reportValidity()) return
@@ -339,7 +340,7 @@ $('#export').onclick = () => {
   const url = URL.createObjectURL(blob),
     a = document.createElement('a')
   a.href = url
-  a.download = `still-watchlist-${new Date().toISOString().slice(0, 10)}.json`
+  a.download = `price-lantern-watchlist-${new Date().toISOString().slice(0, 10)}.json`
   a.click()
   setTimeout(() => URL.revokeObjectURL(url), 1000)
 }

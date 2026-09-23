@@ -75,8 +75,8 @@ a {
   align-items: center;
   font-family: var(--serif);
   font-weight: bold;
-  font-size: 36px;
-  letter-spacing: -2px;
+  font-size: 30px;
+  white-space: nowrap;
 }
 .brand-mark {
   display: inline-flex;
@@ -87,7 +87,7 @@ a {
   border-radius: 17px 17px 9px 9px;
   background: var(--ink);
   color: var(--bg);
-  font: italic 32px var(--serif);
+  font: italic 28px var(--serif);
   margin-right: 12px;
   letter-spacing: 0;
   transform: rotate(-8deg);
@@ -785,7 +785,7 @@ summary span {
   padding: 28px;
 }
 .popup .brand {
-  font-size: 30px;
+  font-size: 25px;
 }
 .popup h1 {
   font-size: 37px;
@@ -929,6 +929,15 @@ summary span {
   }
 }
 @media (max-width: 440px) {
+  .brand {
+    font-size: 17px;
+  }
+  .brand-mark {
+    width: 23px;
+    height: 26px;
+    margin-right: 6px;
+    font-size: 21px;
+  }
   main {
     padding: 0 20px;
   }
@@ -971,9 +980,10 @@ summary span {
   }
   .topbar {
     padding: 0 20px;
+    gap: 12px;
   }
   nav {
-    gap: 20px;
+    gap: 12px;
   }
   .card h2 {
     font-size: 15px;

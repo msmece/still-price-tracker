@@ -1,5 +1,5 @@
-// Self-contained: Chrome serializes this function into the selected page.
-export function inspectPage(selector = '') {
+// Self-contained: the browser serializes this function into the selected page.
+export function inspectPage(selector = '', rules = []) {
   try {
     const meta = (key) =>
       document.querySelector(`meta[property="${key}"],meta[name="${key}"]`)?.content
@@ -30,25 +30,35 @@ export function inspectPage(selector = '') {
       const e = elements[0]
       return { ...base, raw: e.getAttribute('content') || e.textContent.trim() }
     }
-    // JYSK offers a cheaper, more reliable JSON check than reloading a product page.
-    if (location.hostname === 'jysk.de' || location.hostname === 'www.jysk.de') {
-      const node = document.querySelector('[data-jysk-react-component="PDPSumUpContainer"]')
-      if (node) {
-        try {
-          const p = JSON.parse(node.getAttribute('data-jysk-react-properties')).content
-          return {
-            ...base,
-            name: p.title,
-            currency: 'EUR',
-            raw: p.price.minSinglePrice,
-            source: 'api',
-            apiUrl: `https://jysk.de/service/search/product-teaser-lookup?locale=de-DE&ids=${encodeURIComponent(p.wssId)}`,
-            path: '0.price.unformatted.minSingle'
-          }
-        } catch {
-          /* Continue with standard product metadata. */
+    for (const rule of rules) {
+      if (location.hostname !== rule.host && location.hostname !== `www.${rule.host}`) continue
+      try {
+        if (rule.type === 'selector') {
+          const nodes = document.querySelectorAll(rule.selector)
+          if (nodes.length !== 1) continue
+          const raw =
+            (rule.attribute && nodes[0].getAttribute(rule.attribute)) ||
+            nodes[0].textContent?.trim()
+          if (raw) return { ...base, currency: rule.currency, raw }
+          continue
         }
-      }
+        const node = document.querySelector(rule.selector)
+        if (!node) continue
+        const product = JSON.parse(node.getAttribute(rule.attribute))
+        const at = (path) => path.split('.').reduce((value, key) => value?.[key], product)
+        const id = at(rule.idPath)
+        const raw = at(rule.pricePath)
+        if (id == null || raw == null || !['string', 'number'].includes(typeof id)) continue
+        return {
+          ...base,
+          name: at(rule.namePath) || title,
+          currency: rule.currency,
+          raw,
+          source: 'api',
+          apiUrl: rule.apiPrefix + encodeURIComponent(String(id)),
+          path: rule.apiPath
+        }
+      } catch {}
     }
     const products = []
     function visit(value) {
@@ -95,7 +105,7 @@ export function pickPrice() {
     host.style.cssText = 'all:initial;position:fixed;inset:0;z-index:2147483647;pointer-events:none'
     const root = host.attachShadow({ mode: 'closed' })
     const label = document.createElement('div')
-    label.textContent = 'STILL  ·  Click the price you want to track. Esc to cancel.'
+    label.textContent = 'PRICE LANTERN  ·  Click the price you want to track. Esc to cancel.'
     label.style.cssText =
       'position:fixed;top:20px;left:50%;transform:translateX(-50%);padding:16px 24px;border-radius:14px;background:#243e34;color:white;font:14px system-ui;box-shadow:0 8px 40px #0003;'
     const box = document.createElement('div')

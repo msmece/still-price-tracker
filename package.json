@@ -1,6 +1,6 @@
 {
-  "name": "still-price-tracker",
-  "version": "0.1.0",
+  "name": "price-lantern",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {

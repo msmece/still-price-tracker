@@ -1,3 +1,4 @@
+const chrome = globalThis.browser || globalThis.chrome
 const status = document.querySelector('#popup-status')
 async function capture(picker) {
   try {

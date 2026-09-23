@@ -5,10 +5,10 @@ import json
 
 root = Path(__file__).resolve().parents[1]
 manifest = json.loads((root / 'manifest.json').read_text())
-files = ['manifest.json', 'background.js', 'capture.js', 'model.js', 'app.js',
+files = ['manifest.json', 'background.js', 'capture.js', 'sources.js', 'sources.json', 'model.js', 'app.js',
          'art.js', 'demo.js', 'popup.js', 'popup.html', 'index.html',
          'styles.css', 'icon.png', 'README.md', 'LICENSE']
-destination = root / 'dist' / f'still-{manifest["version"]}.zip'
+destination = root / 'dist' / f'price-lantern-{manifest["version"]}.zip'
 destination.parent.mkdir(exist_ok=True)
 with ZipFile(destination, 'w', ZIP_DEFLATED) as archive:
     for name in files:

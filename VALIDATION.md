@@ -2,6 +2,13 @@
 
 Validated in an isolated headless Chrome profile, September 20–21, 2026.
 
+## September 23, 2026 update
+
+- `npm test`: 20 passing tests, including public source-catalog validation, remote refresh/cache and offline fallback, CSS/API rule extraction, manual selector precedence, and Firefox background startup with the `browser` namespace.
+- Firefox 156.0.1: `web-ext run` loaded Price Lantern as a temporary add-on in a fresh profile. Mozilla `web-ext lint` reports zero errors; the remaining warnings cover the expected Chrome service-worker fallback and existing dynamic dashboard HTML.
+- Price Lantern's renamed header fits at 390px and 1440px without page overflow or navigation overlap in the preview.
+- `npm run package` builds an archive including `sources.js` and `sources.json`. Native permission approval, actual store publication/signing, and longer running background checks still require interactive browser verification.
+
 ## Passed
 
 - Ten automated Node tests: localized prices, URL and JSON path validation, source requirements, target crossing, observed 30-day minimum, worker startup without optional notifications, persistence/error handling, concurrent saves, and rejecting messages from web-page contexts.

@@ -9,6 +9,8 @@ import {
   webURL
 } from './model.js'
 import { inspectPage, pickPrice } from './capture.js'
+import { loadSources } from './sources.js'
+const chrome = globalThis.browser || globalThis.chrome
 let writes = Promise.resolve(),
   checks = Promise.resolve()
 const state = async () => {
@@ -72,7 +74,7 @@ async function readPrice(watch) {
         const [result] = await chrome.scripting.executeScript({
           target: { tabId: tab.id },
           func: inspectPage,
-          args: [watch.source === 'selector' ? watch.selector : '']
+          args: [watch.source === 'selector' ? watch.selector : '', watch.source === 'auto' ? await loadSources() : []]
         })
         if (!result?.result) throw new Error('The page could not be read.')
         if (result.result.error) throw new Error(result.result.error)
@@ -129,7 +131,8 @@ async function capture(tabId, picker) {
   webURL(tab.url)
   const [result] = await chrome.scripting.executeScript({
     target: { tabId },
-    func: picker ? pickPrice : inspectPage
+    func: picker ? pickPrice : inspectPage,
+    ...(!picker && { args: ['', await loadSources()] })
   })
   if (!result?.result) return { cancelled: true }
   const draft = result.result
@@ -222,7 +225,8 @@ chrome.runtime.onMessage.addListener((message, sender, respond) => {
   return true
 })
 async function setup() {
-  await chrome.storage.local.setAccessLevel({ accessLevel: 'TRUSTED_CONTEXTS' })
+  if (chrome.storage.local.setAccessLevel)
+    await chrome.storage.local.setAccessLevel({ accessLevel: 'TRUSTED_CONTEXTS' })
   if (!(await chrome.alarms.get('still-check')))
     await chrome.alarms.create('still-check', { periodInMinutes: 1 })
   // Recover a temporary tab if a worker was interrupted mid-check.
