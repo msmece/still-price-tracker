@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><svg x="16" y="16" width="96" height="96" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="halo"><stop stop-color="#e4a55b" stop-opacity=".34"/><stop offset="1" stop-color="#e4a55b" stop-opacity="0"/></radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbe9b7"/><stop offset="1" stop-color="#e7b66e"/></linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#173b31"/>
+  <circle cx="256" cy="260" r="190" fill="url(#halo)"/>
+  <g transform="translate(256 256) scale(1.22) translate(-256 -256)">
+  <circle cx="256" cy="98" r="29" fill="#173b31" stroke="#fff8e7" stroke-width="19"/>
+  <rect x="246" y="119" width="20" height="29" rx="10" fill="#fff8e7"/>
+  <path d="M163 184c18-34 52-51 93-51s75 17 93 51l9 19H154z" fill="#fff8e7"/>
+  <path d="M188 199h136l18 174H170z" fill="url(#glass)"/>
+  <path d="M157 198h34l-16 176h-34zm164 0h34l16 176h-34z" fill="#fff8e7"/>
+  <path d="M210 253h41l39 48h27" fill="none" stroke="#245242" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="317" cy="301" r="17" fill="#cb6849"/>
+  <rect x="142" y="367" width="228" height="42" rx="18" fill="#fff8e7"/>
+  </g>
+</svg></svg>

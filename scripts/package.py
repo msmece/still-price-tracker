@@ -25,5 +25,9 @@ for browser in ('chrome', 'firefox'):
     with ZipFile(archive_path, 'w', ZIP_DEFLATED) as archive:
         archive.writestr('manifest.json', json.dumps(browser_manifest, indent=2) + '\n')
         for name in files:
-            archive.write(root / name, name)
+            if browser == 'chrome' and name == 'icon.png':
+                source = root / 'store-assets/chrome/icon-128.png'
+            else:
+                source = root / name
+            archive.write(source, name)
     print(f'{archive_path} ({archive_path.stat().st_size:,} bytes)')

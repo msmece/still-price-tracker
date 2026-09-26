@@ -16,9 +16,11 @@ for browser in ('chrome', 'firefox'):
         assert set(manifest['action']['default_icon'].values()) <= set(archive.namelist())
         background = manifest['background']
         if browser == 'chrome':
+            assert archive.read('icon.png') == (root / 'store-assets/chrome/icon-128.png').read_bytes()
             assert background['service_worker'] == 'background.js'
             assert 'scripts' not in background
         else:
+            assert archive.read('icon.png') == (root / 'icon.png').read_bytes()
             assert background['scripts'] == ['background.js']
             assert 'service_worker' not in background
             assert 'browser_specific_settings' in manifest

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="280" viewBox="0 0 440 280"><defs>
+<linearGradient id="back" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#092d29"/><stop offset=".58" stop-color="#164437"/><stop offset="1" stop-color="#285647"/></linearGradient>
+<radialGradient id="bloom"><stop stop-color="#e8b76d" stop-opacity=".23"/><stop offset="1" stop-color="#e8b76d" stop-opacity="0"/></radialGradient>
+<linearGradient id="stroke" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#e7bb7a"/><stop offset="1" stop-color="#f4d595"/></linearGradient>
+</defs>
+<rect width="440" height="280" fill="url(#back)"/>
+<circle cx="134" cy="142" r="188" fill="url(#bloom)"/>
+<circle cx="130" cy="140" r="123" fill="none" stroke="#d9ad6b" stroke-opacity=".14"/>
+<path d="M0 242C85 206 136 250 213 209S354 140 440 181" fill="none" stroke="#b8ccae" stroke-opacity=".11" stroke-width="1.5"/>
+<svg x="16" y="15" width="248" height="248" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="halo"><stop stop-color="#e4a55b" stop-opacity=".34"/><stop offset="1" stop-color="#e4a55b" stop-opacity="0"/></radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbe9b7"/><stop offset="1" stop-color="#e7b66e"/></linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#173b31"/>
+  <circle cx="256" cy="260" r="190" fill="url(#halo)"/>
+  <g transform="translate(256 256) scale(1.22) translate(-256 -256)">
+  <circle cx="256" cy="98" r="29" fill="#173b31" stroke="#fff8e7" stroke-width="19"/>
+  <rect x="246" y="119" width="20" height="29" rx="10" fill="#fff8e7"/>
+  <path d="M163 184c18-34 52-51 93-51s75 17 93 51l9 19H154z" fill="#fff8e7"/>
+  <path d="M188 199h136l18 174H170z" fill="url(#glass)"/>
+  <path d="M157 198h34l-16 176h-34zm164 0h34l16 176h-34z" fill="#fff8e7"/>
+  <path d="M210 253h41l39 48h27" fill="none" stroke="#245242" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="317" cy="301" r="17" fill="#cb6849"/>
+  <rect x="142" y="367" width="228" height="42" rx="18" fill="#fff8e7"/>
+  </g>
+</svg>
+<text x="242" y="110" font-family="Georgia, 'Times New Roman', serif" font-size="35" fill="#fff8e7" letter-spacing="-.8">Price</text>
+<text x="242" y="149" font-family="Georgia, 'Times New Roman', serif" font-size="35" fill="#fff8e7" letter-spacing="-.8">Lantern</text>
+<path d="M245 183H282L310 208H341" fill="none" stroke="url(#stroke)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="341" cy="208" r="7" fill="#d87b58"/>
+<rect x=".5" y=".5" width="439" height="279" fill="none" stroke="#dbb776" stroke-opacity=".28"/>
+</svg>
