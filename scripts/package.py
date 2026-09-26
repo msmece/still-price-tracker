@@ -7,7 +7,8 @@ root = Path(__file__).resolve().parents[1]
 manifest = json.loads((root / 'manifest.json').read_text())
 files = ['background.js', 'capture.js', 'sources.js', 'sources.json', 'model.js',
          'app.js', 'dashboard-view.js', 'art.js', 'demo.js', 'popup.js',
-         'popup.html', 'index.html', 'styles.css', 'icon.png', 'README.md', 'LICENSE']
+         'popup.html', 'index.html', 'styles.css', 'icon-16.png', 'icon-32.png', 'icon-48.png',
+         'icon-64.png', 'icon.png', 'README.md', 'LICENSE']
 destination = root / 'dist'
 destination.mkdir(exist_ok=True)
 

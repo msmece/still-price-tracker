@@ -14,7 +14,7 @@ Suggested English screenshot descriptions:
 2. **Start in seconds:** Add a product link, set a target, and customize the price source when needed. Sample preview.
 3. **Know the price story:** See observed history, your own 30-day low, and the target in one view. Sample preview; not the retailer's official reference price.
 
-The icon source is `icon.svg`; `icon-128.png` is the raster image for AMO. The extension package also uses this icon starting with version 0.2.2. Mozilla recommends a recognizable icon without words and a short screenshot sequence that shows key features. Source: https://extensionworkshop.com/documentation/develop/create-an-appealing-listing/
+The wordless icon pairs a lantern silhouette with a falling price line, and remains legible at 16 and 32 px. The icon source is `icon.svg`; `icon-128.png` is the raster image for AMO. The extension package also uses this icon starting with version 0.2.3. Mozilla recommends a recognizable icon without words and a short screenshot sequence that shows key features. Source: https://extensionworkshop.com/documentation/develop/create-an-appealing-listing/
 
 ## Listing copy to test
 

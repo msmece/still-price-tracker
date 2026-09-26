@@ -1,10 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Price Lantern">
-  <rect width="512" height="512" rx="112" fill="#294638"/>
-  <path d="M222 146v-25c0-19 15-34 34-34s34 15 34 34v25" fill="none" stroke="#f7f5eb" stroke-width="19" stroke-linecap="round"/>
-  <path d="M148 182c22-28 60-43 108-43s86 15 108 43v17H148z" fill="#f7f5eb"/>
-  <rect x="130" y="178" width="252" height="230" rx="43" fill="#f7f5eb"/>
-  <rect x="160" y="207" width="192" height="157" rx="24" fill="#294638"/>
-  <path d="M187 264h63l42 53h31" fill="none" stroke="#f7f5eb" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="323" cy="317" r="21" fill="#eaa46e"/>
-  <rect x="145" y="385" width="222" height="33" rx="16.5" fill="#f7f5eb"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="halo"><stop stop-color="#e4a55b" stop-opacity=".34"/><stop offset="1" stop-color="#e4a55b" stop-opacity="0"/></radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbe9b7"/><stop offset="1" stop-color="#e7b66e"/></linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#173b31"/>
+  <circle cx="256" cy="260" r="190" fill="url(#halo)"/>
+  <g transform="translate(256 256) scale(1.22) translate(-256 -256)">
+  <circle cx="256" cy="98" r="29" fill="#173b31" stroke="#fff8e7" stroke-width="19"/>
+  <rect x="246" y="119" width="20" height="29" rx="10" fill="#fff8e7"/>
+  <path d="M163 184c18-34 52-51 93-51s75 17 93 51l9 19H154z" fill="#fff8e7"/>
+  <path d="M188 199h136l18 174H170z" fill="url(#glass)"/>
+  <path d="M157 198h34l-16 176h-34zm164 0h34l16 176h-34z" fill="#fff8e7"/>
+  <path d="M210 253h41l39 48h27" fill="none" stroke="#245242" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="317" cy="301" r="17" fill="#cb6849"/>
+  <rect x="142" y="367" width="228" height="42" rx="18" fill="#fff8e7"/>
+  </g>
 </svg>

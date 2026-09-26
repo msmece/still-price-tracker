@@ -2,6 +2,11 @@
 
 Validated in an isolated headless Chrome profile, September 20–21, 2026.
 
+## September 27, 2026 icon update (0.2.3)
+
+- Replaced the bag-like icon with a lantern and descending price line. Checked the vector at 16, 32, 48, 64, and 128 px. Native-size PNGs are used for the browser toolbar and add-on managers; the 128 px PNG is used for the Firefox Add-ons listing.
+- The runtime logic and listing screenshots are unchanged from 0.2.2. `npm run check` passed all 20 tests and verified both browser ZIPs. Mozilla `web-ext lint` on the Firefox package reported zero errors, notices, or warnings. The matching 0.2.3 Firefox and source ZIPs are the package pair for a new submission.
+
 ## September 26, 2026 listing update (0.2.2)
 
 - Fixed an SVG namespace regression that prevented bundled product illustrations from rendering in the dashboard. The corrected images were visually checked in a browser and the SVG nodes use the SVG namespace.

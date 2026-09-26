@@ -12,6 +12,8 @@ for browser in ('chrome', 'firefox'):
         manifest = json.loads(archive.read('manifest.json'))
         assert manifest['manifest_version'] == 3
         assert {'dashboard-view.js', 'sources.json', 'LICENSE'} <= set(archive.namelist())
+        assert set(manifest['icons'].values()) <= set(archive.namelist())
+        assert set(manifest['action']['default_icon'].values()) <= set(archive.namelist())
         background = manifest['background']
         if browser == 'chrome':
             assert background['service_worker'] == 'background.js'
