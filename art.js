@@ -1,4 +1,5 @@
-const wrap = (content) => `<svg viewBox="0 0 300 180" aria-hidden="true">${content}</svg>`
+const wrap = (content) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180" aria-hidden="true">${content}</svg>`
 export const art = {
   lamp: wrap(
     '<ellipse cx="154" cy="158" rx="52" ry="7" fill="#d9d6cb" opacity=".6"/><path d="M139 83h23l8 66h-39z" fill="#c6bba4"/><path d="M143 85h9l-1 65h-17z" fill="#d9cfba"/><ellipse cx="150" cy="150" rx="27" ry="5" fill="#b7ab91"/><path d="M79 88Q84 19 150 20Q215 19 222 88Z" fill="#c3ad86"/><path d="M79 88Q84 19 150 20Q114 32 114 88Z" fill="#d4c19b"/><ellipse cx="150" cy="88" rx="71" ry="9" fill="#b29b76"/><ellipse cx="150" cy="88" rx="64" ry="5" fill="#e0cda2"/><path d="M183 94v29" stroke="#887962" stroke-width="1"/><circle cx="183" cy="125" r="2" fill="#887962"/>'

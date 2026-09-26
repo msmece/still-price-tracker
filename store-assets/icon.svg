@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Price Lantern">
+  <rect width="512" height="512" rx="112" fill="#294638"/>
+  <path d="M222 146v-25c0-19 15-34 34-34s34 15 34 34v25" fill="none" stroke="#f7f5eb" stroke-width="19" stroke-linecap="round"/>
+  <path d="M148 182c22-28 60-43 108-43s86 15 108 43v17H148z" fill="#f7f5eb"/>
+  <rect x="130" y="178" width="252" height="230" rx="43" fill="#f7f5eb"/>
+  <rect x="160" y="207" width="192" height="157" rx="24" fill="#294638"/>
+  <path d="M187 264h63l42 53h31" fill="none" stroke="#f7f5eb" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="323" cy="317" r="21" fill="#eaa46e"/>
+  <rect x="145" y="385" width="222" height="33" rx="16.5" fill="#f7f5eb"/>
+</svg>

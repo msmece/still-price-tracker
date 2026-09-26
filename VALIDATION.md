@@ -2,6 +2,13 @@
 
 Validated in an isolated headless Chrome profile, September 20–21, 2026.
 
+## September 26, 2026 listing update (0.2.2)
+
+- Fixed an SVG namespace regression that prevented bundled product illustrations from rendering in the dashboard. The corrected images were visually checked in a browser and the SVG nodes use the SVG namespace.
+- Added a high-contrast custom icon and three 1280 × 800 listing screenshots under `store-assets/`. The screenshots use the built-in sample preview and show no private watchlist data.
+- `npm run check`: 20 passing tests and both 0.2.2 archives verified. Mozilla `web-ext lint` on the Firefox archive: zero errors, zero notices, zero warnings. The Firefox package and its matching source archive are the files to upload for this release.
+- Listing PNGs were visually reviewed for private data and stripped of embedded metadata; source text and the Firefox package were scanned for common secret and local-path patterns.
+
 ## September 26, 2026 update
 
 - The Firefox Add-ons upload archive is now browser-specific: `price-lantern-0.2.1-firefox.zip` has `background.scripts` and no `background.service_worker`. The Chrome archive keeps only `background.service_worker`.
