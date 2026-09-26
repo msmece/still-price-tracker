@@ -1,14 +1,9 @@
-import { money, lowestObserved, originPattern, validateWatch } from './model.js'
+import { money, originPattern, validateWatch } from './model.js'
 import { demoRequest } from './demo.js'
-import { art } from './art.js'
+import { watchCard, watchDetail } from './dashboard-view.js'
 const chrome = globalThis.browser || globalThis.chrome
 const live = Boolean(chrome?.runtime?.id)
 const $ = (selector) => document.querySelector(selector)
-const esc = (value) =>
-  String(value ?? '').replace(
-    /[&<>"']/g,
-    (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
-  )
 let data,
   filter = 'all',
   search = '',
@@ -46,33 +41,27 @@ function ago(at) {
         ? `Checked ${Math.floor(mins / 60)}h ago`
         : `Checked ${Math.floor(mins / 1440)}d ago`
 }
-function chart(w, large = false) {
-  if (!w.history.length)
-    return `<p class="field-note">Your history begins with the first successful check.</p>`
-  const points = w.history.slice(-60),
-    values = points.map((p) => p.price),
-    low = Math.min(...values),
-    high = Math.max(...values),
-    span = high - low || Math.max(high * 0.2, 1)
-  const start = points[0].at,
-    duration = points.at(-1).at - start || 1
-  const coordinates = points.map((p) => [
-    points.length === 1 ? 150 : 4 + ((p.at - start) / duration) * 292,
-    35 - ((p.price - low) / span) * 27
-  ])
-  if (high === low) coordinates.forEach((p) => (p[1] = 20))
-  const path = coordinates.map((p) => p.join(',')).join(' '),
-    end = coordinates.at(-1)
-  return `<svg class="${large ? 'detail-chart' : 'sparkline'}" viewBox="0 0 300 44" preserveAspectRatio="none" role="img" aria-label="${esc(`Observed price history, ${money(low, w.currency)} to ${money(high, w.currency)}`)}"><path class="chart-baseline" d="M0 40H300"/><polyline class="chart-line" points="${path}" vector-effect="non-scaling-stroke"/><circle class="chart-dot" cx="${end[0]}" cy="${end[1]}" r="2.3"/></svg>`
-}
 function render() {
   const watches = data.watches,
     drops = watches.filter(dropped),
     targets = watches.filter(reached)
   $('#nav-count').textContent = watches.length
-  $('#stat-total').innerHTML = `${watches.length}<span>items</span>`
-  $('#stat-drops').innerHTML = `${drops.length}<span>price drops</span>`
-  $('#stat-targets').innerHTML = `${targets.length}<span>little wins</span>`
+  $('#stat-total').replaceChildren(
+    document.createTextNode(String(watches.length)),
+    Object.assign(document.createElement('span'), { textContent: 'items' })
+  )
+  $('#stat-drops').replaceChildren(
+    document.createTextNode(String(drops.length)),
+    Object.assign(document.createElement('span'), {
+      textContent: 'price drops'
+    })
+  )
+  $('#stat-targets').replaceChildren(
+    document.createTextNode(String(targets.length)),
+    Object.assign(document.createElement('span'), {
+      textContent: 'little wins'
+    })
+  )
   $('#all-count').textContent = watches.length
   $('#drop-count').textContent = drops.length
   const items = watches.filter(
@@ -83,24 +72,9 @@ function render() {
       `${w.name} ${w.url}`.toLowerCase().includes(search)
   )
   $('#empty').hidden = items.length > 0
-  $('#watch-grid').innerHTML = items
-    .map((w) => {
-      const current = latest(w),
-        first = w.history[0]?.price
-      const pct = first > 0 && dropped(w) ? Math.round(((first - current) / first) * 100) : 0
-      const tag = w.error
-        ? 'Needs attention'
-        : w.paused
-          ? 'Paused'
-          : reached(w)
-            ? '✓ Target reached'
-            : dropped(w)
-              ? '↘ Price dropped'
-              : 'Keeping an eye on it'
-      const generic = `<div class="generic-art" aria-hidden="true">${esc(w.name.charAt(0).toLowerCase())}</div>`
-      return `<article class="card"><div class="card-visual">${art[w.illustration] || generic}<span class="tag ${w.error ? 'error' : reached(w) || dropped(w) ? 'good' : ''}">${tag}</span><button class="card-menu icon-button" data-detail="${esc(w.id)}" aria-label="Details for ${esc(w.name)}">⋯</button></div><div class="card-body"><div class="store">${esc(new URL(w.url).hostname.replace(/^www\./, ''))}</div><h2><a href="${esc(w.url)}" target="_blank" rel="noopener noreferrer">${esc(w.name)}</a></h2><div class="card-subtitle">${esc(w.error || (w.paused ? 'Automatic checks paused' : ago(w.checkedAt)))}</div><div class="price-row"><strong class="current-price">${esc(money(current, w.currency))}</strong>${dropped(w) ? `<span class="old-price">${esc(money(first, w.currency))}</span><span class="change">↘ ${pct}%</span>` : ''}</div>${chart(w)}<div class="history-note"><span>${w.history.length ? 'Observed history' : 'No observations yet'}</span><span>${w.history.length ? new Date(w.history[0].at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ' — today' : ''}</span></div><div class="card-bottom"><span>Target <strong>${esc(money(w.target, w.currency))}</strong></span><button data-detail="${esc(w.id)}">Details ↗</button></div></div></article>`
-    })
-    .join('')
+  $('#watch-grid').replaceChildren(
+    ...items.map((watch) => watchCard(watch, { latest, dropped, reached, ago }))
+  )
   const interval = Number(data.settings.interval)
   $('#schedule-label').textContent = !live
     ? 'Preview only · your real watchlist starts empty'
@@ -159,7 +133,10 @@ function formWatch() {
   const w = Object.fromEntries(new FormData($('#watch-form')))
   w.currency = $('#watch-form').elements.currency.value
   const existing = data.watches.find((x) => x.id === w.id)
-  return { ...validateWatch({ ...w, paused: existing?.paused }), id: w.id || undefined }
+  return {
+    ...validateWatch({ ...w, paused: existing?.paused }),
+    id: w.id || undefined
+  }
 }
 async function permit(w) {
   if (!live) return
@@ -206,17 +183,7 @@ function detail(id) {
   const w = data.watches.find((w) => w.id === id)
   if (!w) return
   selectedId = id
-  $('#detail-content').innerHTML =
-    `<div class="dialog-heading"><div><div class="eyebrow">A LITTLE PATIENCE, IN PERSPECTIVE</div><h2>${esc(w.name)}</h2></div><button class="close icon-button" aria-label="Close">×</button></div><a class="detail-link" href="${esc(w.url)}" target="_blank" rel="noopener noreferrer">Visit ${esc(new URL(w.url).hostname)} ↗</a><div class="detail-price">${esc(money(latest(w), w.currency))}</div><p class="muted">${esc(ago(w.checkedAt))}${w.paused ? ' · Paused' : ''}</p>${w.error ? `<p class="form-status error">${esc(w.error)}</p>` : ''}${chart(w, true)}<div class="detail-stats"><div><span>Lowest observed · last 30 days</span><strong>${esc(money(lowestObserved(w), w.currency))}</strong></div><div><span>Your target</span><strong>${esc(money(w.target, w.currency))}</strong></div></div><p class="field-note">${live ? 'History starts when you add an item; this is not the retailer’s official 30-day reference price.' : 'Illustrative sample history, not verified retailer prices.'} ${w.history.length} observations stored. Charts show the latest 60.</p><div class="detail-tools"><button class="primary" data-action="check">Check now ↻</button><button class="secondary" data-action="edit">Edit</button><button class="secondary" data-action="pause">${w.paused ? 'Resume' : 'Pause'}</button></div><details><summary>Recent observations <span>⌄</span></summary><table class="history-table"><thead><tr><th>Date</th><th>Price</th></tr></thead><tbody>${w.history
-      .slice(-12)
-      .reverse()
-      .map(
-        (p) =>
-          `<tr><td>${esc(new Date(p.at).toLocaleString())}</td><td>${esc(money(p.price, w.currency))}</td></tr>`
-      )
-      .join(
-        ''
-      )}</tbody></table></details><div class="dialog-actions"><button class="text-button danger" data-action="remove">Remove from watchlist</button></div>`
+  $('#detail-content').replaceChildren(watchDetail(w, { latest, ago, live }))
   if (!$('#detail').open) $('#detail').showModal()
 }
 $('#watch-form').onsubmit = (e) => {
@@ -265,7 +232,10 @@ document.addEventListener('click', async (e) => {
   }
   try {
     action.disabled = true
-    data = await request({ type: action.dataset.action === 'pause' ? 'PAUSE' : 'CHECK', id })
+    data = await request({
+      type: action.dataset.action === 'pause' ? 'PAUSE' : 'CHECK',
+      id
+    })
     render()
     detail(id)
   } catch (e) {
@@ -317,7 +287,10 @@ $('#settings-form').onsubmit = async (e) => {
       )
     data = await request({
       type: 'SETTINGS',
-      settings: { interval: Number(form.elements.interval.value), notifications }
+      settings: {
+        interval: Number(form.elements.interval.value),
+        notifications
+      }
     })
     render()
     $('#settings').close()
@@ -330,7 +303,12 @@ $('#export').onclick = () => {
   const blob = new Blob(
     [
       JSON.stringify(
-        { version: 1, exportedAt: new Date().toISOString(), preview: !live, ...data },
+        {
+          version: 1,
+          exportedAt: new Date().toISOString(),
+          preview: !live,
+          ...data
+        },
         null,
         2
       )

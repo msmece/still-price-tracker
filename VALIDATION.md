@@ -2,12 +2,20 @@
 
 Validated in an isolated headless Chrome profile, September 20–21, 2026.
 
+## September 26, 2026 update
+
+- The Firefox Add-ons upload archive is now browser-specific: `price-lantern-0.2.1-firefox.zip` has `background.scripts` and no `background.service_worker`. The Chrome archive keeps only `background.service_worker`.
+- Dashboard cards, charts, history, and detail views use DOM nodes and `textContent` for dynamic data. No dynamic `innerHTML` assignments remain.
+- `npm run check`: 20 passing tests, both browser archives built and verified.
+- Mozilla `web-ext lint` on the unpacked Firefox 0.2.1 archive: zero errors, zero notices, zero warnings.
+- Headless Chrome dashboard smoke check: cards, charts, stats, filters, search, detail/history, editing, 390px mobile layout, and a malicious-looking product name rendered as text passed with no script exceptions.
+
 ## September 23, 2026 update
 
 - `npm test`: 20 passing tests, including public source-catalog validation, remote refresh/cache and offline fallback, CSS/API rule extraction, manual selector precedence, and Firefox background startup with the `browser` namespace.
-- Firefox 156.0.1: `web-ext run` loaded Price Lantern as a temporary add-on in a fresh profile. Mozilla `web-ext lint` reports zero errors; the remaining warnings cover the expected Chrome service-worker fallback and existing dynamic dashboard HTML.
+- Firefox 156.0.1: `web-ext run` loaded Price Lantern as a temporary add-on in a fresh profile. The original dual-browser manifest produced warnings about the Chrome service worker and dynamic dashboard HTML. The September 26 Firefox archive removes those warnings.
 - Price Lantern's renamed header fits at 390px and 1440px without page overflow or navigation overlap in the preview.
-- `npm run package` builds an archive including `sources.js` and `sources.json`. Native permission approval, actual store publication/signing, and longer running background checks still require interactive browser verification.
+- `npm run package` builds separate Chrome and Firefox archives, both including `sources.js` and `sources.json`. Native permission approval, actual store publication/signing, and longer running background checks still require interactive browser verification.
 
 ## Passed
 

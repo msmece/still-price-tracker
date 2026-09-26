@@ -82,7 +82,7 @@ Tests cover localized number parsing, unsafe URLs/JSON paths, source validation 
 
 The dashboard is native HTML/CSS/ES modules. Extension behavior is in `background.js`; page extraction and the picker in `capture.js`; validation and price/history rules in `model.js`.
 
-This is an unpacked MVP, not a published store release. Manual approval of native permission prompts and OS notification delivery should be checked in a normal browser before publication. For a packaged ZIP, run `npm run package`; Firefox store distribution additionally requires Mozilla signing.
+Run `npm run package` to build separate ZIP files for Chrome and Firefox. Upload the `-firefox.zip` archive to Firefox Add-ons; its manifest contains only the Firefox background script. The Chrome archive contains only the service worker. Firefox store distribution requires Mozilla signing. Manual approval of native permission prompts and OS notification delivery should be checked in a normal browser before publication.
 
 ## License
 

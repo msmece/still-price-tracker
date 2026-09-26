@@ -7,3 +7,4 @@ node_modules/
 *.p12
 .DS_Store
 __pycache__/
+.amo-upload-uuid

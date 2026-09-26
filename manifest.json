@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Price Lantern",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A small, private price tracker. Choose a price on a page, set a target, and let it come to you.",
   "minimum_chrome_version": "121",
   "permissions": ["activeTab", "scripting", "storage", "alarms"],
@@ -17,11 +17,20 @@
     "gecko": {
       "id": "price-lantern@msmece.github.io",
       "strict_min_version": "142.0",
-      "data_collection_permissions": { "required": ["none"] }
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   },
-  "action": { "default_popup": "popup.html", "default_title": "Track with Price Lantern" },
-  "icons": { "128": "icon.png" },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Track with Price Lantern"
+  },
+  "icons": {
+    "128": "icon.png"
+  },
   "options_page": "index.html",
-  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none'" }
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'"
+  }
 }

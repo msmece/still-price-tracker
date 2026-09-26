@@ -12,20 +12,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Test
-        run: npm test
-      - name: Package
-        run: npm run package
-      - name: Verify archive
-        run: |
-          python3 - <<'PY'
-          import json
-          from zipfile import ZipFile
-          manifest = json.loads(open('manifest.json').read())
-          with ZipFile(f'dist/still-{manifest["version"]}.zip') as package:
-              assert package.testzip() is None
-              manifest = json.loads(package.read('manifest.json'))
-              assert manifest['manifest_version'] == 3
-              assert 'host_permissions' not in manifest
-              assert 'LICENSE' in package.namelist()
-          PY
+      - name: Test and package both browsers
+        run: npm run check
