@@ -1,6 +1,6 @@
 {
   "name": "price-lantern",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,6 +8,8 @@
     "serve": "python3 -m http.server 4173 --bind 127.0.0.1",
     "package": "python3 scripts/package.py",
     "verify:package": "python3 scripts/verify-package.py",
-    "check": "npm test && npm run package && npm run verify:package"
+    "package:source": "python3 scripts/package-source.py",
+    "verify:source": "python3 scripts/verify-source.py",
+    "check": "npm test && npm run package && npm run verify:package && npm run package:source && npm run verify:source"
   }
 }

@@ -806,6 +806,16 @@ summary span {
   width: 100%;
   margin: 10px 0;
 }
+.popup .popup-privacy {
+  font-size: 11px;
+  margin: 17px 0 5px;
+}
+.popup-privacy a,
+.field-note a {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 .popup #popup-status {
   font-size: 11px;
 }

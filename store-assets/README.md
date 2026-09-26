@@ -22,4 +22,6 @@ The wordless icon pairs a lantern silhouette with a falling price line, and rema
 
 **English summary (under 250 characters):** Price alerts for your wishlist. Track product prices, set a target, and see your own price history. Price Lantern checks while Firefox is running.
 
+For the new Firefox 0.2.4 release, upload `dist/price-lantern-0.2.4-firefox.zip` and its matching `dist/price-lantern-0.2.4-source.zip`. The privacy policy is at https://github.com/msmece/still-price-tracker/blob/main/PRIVACY.md.
+
 Suggested tags, if available: `Preisalarm`, `Preisverlauf`, `Preistracker`, `Wunschliste`, `Shopping`. Use the German screenshot descriptions for the German listing. The public source catalog is fetched from GitHub; user watchlists and price history are stored locally. Notifications are optional. These details belong in the longer listing description so the privacy and scheduling behavior is clear.

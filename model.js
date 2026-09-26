@@ -45,10 +45,11 @@ export function webURL(value) {
   try {
     url = new URL(value)
   } catch {
-    throw new Error('Enter a complete http:// or https:// URL.')
+    throw new Error('Enter a complete HTTPS URL.')
   }
-  if (!['https:', 'http:'].includes(url.protocol) || url.username || url.password)
-    throw new Error('Use an HTTP(S) URL without embedded credentials.')
+  if (url.protocol !== 'https:') throw new Error('Only HTTPS product and API URLs are supported.')
+  if (url.username || url.password)
+    throw new Error('Use an HTTPS URL without embedded credentials.')
   return url.href
 }
 export function originPattern(value) {

@@ -34,7 +34,7 @@ test('localized prices and grouping without confusing current price and discount
     assert.throws(() => parsePrice(raw), undefined, String(raw))
   assert.equal(parsePrice('1.299', '.'), 1.299)
 })
-test('only ordinary web URLs, preserving product variants', () => {
+test('only credential-free HTTPS URLs, preserving product variants', () => {
   assert.equal(
     webURL('https://shop.test/item?size=90#price'),
     'https://shop.test/item?size=90#price'
@@ -44,6 +44,7 @@ test('only ordinary web URLs, preserving product variants', () => {
     'javascript:alert(1)',
     'file:///etc/passwd',
     'https://user:password@shop.test',
+    'http://shop.test/item',
     'data:text/html,test',
     'not a url'
   ])
@@ -61,6 +62,7 @@ test('watch validation enforces source requirements and treats zero target as re
   assert.throws(() => validateWatch({ ...base, source: 'selector' }))
   assert.throws(() => validateWatch({ ...base, source: 'api', apiUrl: 'https://shop.test/api' }))
   assert.throws(() => validateWatch({ ...base, currency: 'EURO' }))
+  assert.throws(() => validateWatch({ ...base, source: 'api', apiUrl: 'http://shop.test/api', path: '0.price' }))
   assert.equal(
     validateWatch({ ...base, source: 'api', apiUrl: 'https://shop.test/api', path: '0.price' })
       .path,

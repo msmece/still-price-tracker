@@ -1,6 +1,6 @@
 # Chrome Web Store upload kit
 
-Upload `dist/price-lantern-0.2.3-chrome.zip` as the extension package. Its `icon.png` is the 128 × 128 Chrome icon with a 96 × 96 artwork area and transparent 16 px padding. The file `icon-128.png` here is a separate preview of that exact packaged icon; Chrome reads the icon from the ZIP.
+Upload `dist/price-lantern-0.2.4-chrome.zip` as the extension package. Its `icon.png` is the 128 × 128 Chrome icon with a 96 × 96 artwork area and transparent 16 px padding. The file `icon-128.png` here is a separate preview of that exact packaged icon; Chrome reads the icon from the ZIP.
 
 Upload these listing assets from this folder:
 
@@ -53,5 +53,7 @@ Price Lantern lädt höchstens einmal täglich einen öffentlichen Katalog für 
 3. See observed price history and your own 30-day low. Sample preview; not an official retailer reference price.
 
 Set the category to **Shopping**. Use the public repository as the website and its Issues page as support if those fields are available. Keep privacy disclosures aligned with the behavior described above. Do not claim universal shop compatibility or continuous background monitoring.
+
+For the Privacy practices form, use [`privacy-practices.md`](privacy-practices.md). The public policy URL is https://github.com/msmece/still-price-tracker/blob/main/PRIVACY.md.
 
 Chrome image guidance: https://developer.chrome.com/docs/webstore/images and https://developer.chrome.com/docs/webstore/best-listing

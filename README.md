@@ -63,11 +63,13 @@ Adding a JYSK Germany page through **Track this page** automatically configures 
 - Target alerts are optional and fire on crossing from above to at/below the target. Operating-system and browser notification settings also apply.
 - Export saves your watchlist, settings, and observations as JSON. Removing an item deletes its saved history.
 
-“All websites” is a customization goal, not a guarantee. Shops must expose a readable price or an accessible API. This MVP does not bypass access controls or bot protection.
+“All websites” is a customization goal, not a guarantee. HTTPS shops must expose a readable price or an accessible API. This MVP does not bypass access controls or bot protection.
 
 ## Permissions
 
-Required: `activeTab`, `scripting`, `storage`, `alarms`, and access to `raw.githubusercontent.com` to fetch the public source catalog. Persistent shop access is requested per origin when saving/testing an item. Notification permission is requested only when enabling alerts. No browsing-history, cookie, or blanket install-time shop permission is required. Manage/revoke grants through your browser's extension settings.
+Required: `activeTab`, `scripting`, `storage`, `alarms`, and access to `raw.githubusercontent.com` to fetch the public source catalog. Persistent HTTPS shop access is requested per origin when saving/testing an item. Notification permission is requested only when enabling alerts. No browsing-history, cookie, or blanket install-time shop permission is required. Manage/revoke grants through your browser's extension settings.
+
+Privacy policy: [PRIVACY.md](PRIVACY.md).
 
 Browser references: [optional permissions](https://developer.chrome.com/docs/extensions/reference/api/permissions), [alarms](https://developer.chrome.com/docs/extensions/reference/api/alarms), [script injection](https://developer.chrome.com/docs/extensions/reference/api/scripting), [Firefox background scripts](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/background).
 
@@ -82,7 +84,7 @@ Tests cover localized number parsing, unsafe URLs/JSON paths, source validation 
 
 The dashboard is native HTML/CSS/ES modules. Extension behavior is in `background.js`; page extraction and the picker in `capture.js`; validation and price/history rules in `model.js`.
 
-Run `npm run package` to build separate ZIP files for Chrome and Firefox. Upload the `-firefox.zip` archive to Firefox Add-ons; its manifest contains only the Firefox background script. The Chrome archive contains only the service worker. Firefox store distribution requires Mozilla signing. Manual approval of native permission prompts and OS notification delivery should be checked in a normal browser before publication.
+Run `npm run package` to build separate ZIP files for Chrome and Firefox, then `npm run package:source` to create the matching Mozilla source archive. `npm run verify:source` rebuilds both packages from that archive and compares their contents. Upload the `-firefox.zip` archive to Firefox Add-ons; its manifest contains only the Firefox background script. The Chrome archive contains only the service worker. Firefox store distribution requires Mozilla signing. Manual approval of native permission prompts and OS notification delivery should be checked in a normal browser before publication.
 
 ## License
 
